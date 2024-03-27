@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BallManager {
-    public static List<Ball> balls = new ArrayList<>();
+    public static ArrayList<Ball> balls = new ArrayList<>();
 
     public static void addBall(Ball ball) {
         balls.add(ball);

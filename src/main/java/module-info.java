@@ -6,6 +6,7 @@ module org.discm.ballsserver {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires org.json;
 
     opens org.discm.ballsserver to javafx.fxml;
     exports org.discm.ballsserver;

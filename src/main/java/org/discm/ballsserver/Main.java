@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main extends Application {
 
@@ -26,8 +28,11 @@ public class Main extends Application {
     private static final int WINDOW_WIDTH = 1920;
     private static final int WINDOW_HEIGHT = 1080;
 
+    private Server server;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
+        ExecutorService thread = Executors.newSingleThreadExecutor();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
         fxmlLoader.setController(this);
         Parent root = (Parent) fxmlLoader.load();
@@ -40,6 +45,9 @@ public class Main extends Application {
 
         Canvas gameCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         gamePane.getChildren().add(gameCanvas);
+
+        server = new Server(4000);
+        thread.execute(() -> server.runServer());
 
         AnimationTimer timer = new AnimationTimer() {
             private long lastTime = System.nanoTime();
