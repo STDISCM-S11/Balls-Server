@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,6 +17,8 @@ import java.util.concurrent.Executors;
 
 public class Server {
     ServerSocket server = null;
+    private Map<Integer, DataOutputStream> clientOutputStreams = new ConcurrentHashMap<>();
+    private int id = 0;
     public Server(int port){
         try{
             server = new ServerSocket(port);
@@ -48,17 +52,28 @@ public class Server {
         private Socket client;
         public ClientHandler(Socket client){
             this.client = client;
+            try{
+                clientOutputStreams.put(id, new DataOutputStream(this.client.getOutputStream()));
+                id++;
+            }catch (IOException e){
+                System.err.println("Server exception: " + e.getMessage());
+            }
+
+
         }
 
         @Override
         public void run() {
             try {
-                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+//                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+//                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
                 while (true) {
                     JSONArray jsonArray = new JSONArray();
                     ArrayList<Ball> balls = BallManager.balls;
+//                    if(balls.isEmpty()){
+//                        continue;
+//                    }
 
                     for (Ball ball : balls) {
                         JSONObject jsonObject = new JSONObject();
@@ -71,13 +86,18 @@ public class Server {
 //                        System.out.println(ball.getY());
                     }
 
-                    // Send JSON string to client
-                    out.println(jsonArray.toString());
+                    for(int i = 0; i < id; i++){
+                        // Send JSON string to client
+                        PrintWriter out = new PrintWriter(clientOutputStreams.get(i), true);
+                        out.println(jsonArray.toString());
+                    }
+
+
 
                     // Wait for some time before sending again
-                    Thread.sleep(50); // Adjust the delay according to your requirements
+                    Thread.sleep(10); // Adjust the delay according to your requirements
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 //            try (DataInputStream in = new DataInputStream(new BufferedInputStream(client.getInputStream()))) {
