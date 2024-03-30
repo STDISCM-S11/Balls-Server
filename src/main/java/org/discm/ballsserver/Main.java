@@ -103,8 +103,20 @@ public class Main extends Application {
     }
 
     private void draw(GraphicsContext gc) {
-        gc.clearRect(0, 0, 1280, 720); // Clear the canvas
-        spriteManager.drawSprites(gc); // Draw sprites
+        gc.save(); // Save the current state of the GraphicsContext
+
+        // Clear the canvas
+        gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        // Apply transformation to flip the y-axis
+        gc.scale(1, -1);
+        gc.translate(0, -CANVAS_HEIGHT);
+
+        // Now (0,0) is at the bottom left, and you can draw using these coordinates
+        BallManager.drawBalls(gc, gamePane);
+        spriteManager.drawSprites(gc); // Ensure sprite drawing logic accounts for the flipped y-axis
+
+        gc.restore(); // Restore the original state of the GraphicsContext
     }
 
     private void spawnBall0() {
