@@ -47,6 +47,7 @@ public class Main extends Application {
     private static final int WINDOW_HEIGHT = 1080;
 
     private Server server;
+    private SpriteManager spriteManager;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -63,6 +64,10 @@ public class Main extends Application {
 
         Canvas gameCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         gamePane.getChildren().add(gameCanvas);
+
+        // Initialize sprite manager and create a sprite
+        spriteManager = new SpriteManager();
+        spriteManager.addSprite(new Sprite(0, 0)); // Example position
 
         server = new Server(4000);
         thread.execute(() -> server.runServer());
@@ -91,9 +96,15 @@ public class Main extends Application {
                 GraphicsContext gc = gameCanvas.getGraphicsContext2D();
                 gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
                 BallManager.drawBalls(gc, gamePane);
+                draw(gameCanvas.getGraphicsContext2D());
             }
         };
         timer.start();
+    }
+
+    private void draw(GraphicsContext gc) {
+        gc.clearRect(0, 0, 1280, 720); // Clear the canvas
+        spriteManager.drawSprites(gc); // Draw sprites
     }
 
     private void spawnBall0() {
