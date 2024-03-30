@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public class Ball {
     private static final double PI = Math.PI;
-    private static final double radius = 10.0; // Adjust the radius as needed
+    private static final double radius = 5.0; // Adjust the radius as needed
 
     private double x;
     private double y;
