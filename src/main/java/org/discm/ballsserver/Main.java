@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -23,19 +24,7 @@ public class Main extends Application {
     private Pane gamePane;
 
     @FXML
-    private TextField xField, yField, angleField, velocityField;
-
-    // Form 1 TextFields
-    @FXML
-    private TextField startX1, startY1, endX1, endY1, angle1, velocity1;
-
-    // Form 2 TextFields
-    @FXML
-    private TextField x2, y2, startAngle2, endAngle2, velocity2;
-
-    // Form 3 TextFields
-    @FXML
-    private TextField x3, y3, angle3, startVelocity3, endVelocity3;
+    private Label fpsLabel;
 
     // Spawn Buttons for each form
     @FXML
@@ -84,19 +73,36 @@ public class Main extends Application {
     }
 
     private void setupAnimationTimer(Canvas gameCanvas) {
+        final long[] frameTimes = new long[100];
+        final int[] frameTimeIndex = {0};
+        final boolean[] arrayFilled = {false};
+
         AnimationTimer timer = new AnimationTimer() {
-            private long lastTime = System.nanoTime();
+            private long lastTime = 0;
 
             @Override
             public void handle(long now) {
-                double deltaTime = (now - lastTime) / 1e9;
+                long oldFrameTime = frameTimes[frameTimeIndex[0]];
+                frameTimes[frameTimeIndex[0]] = now;
+                frameTimeIndex[0] = (frameTimeIndex[0] + 1) % frameTimes.length;
+                if (frameTimeIndex[0] == 0) {
+                    arrayFilled[0] = true;
+                }
+                if (arrayFilled[0]) {
+                    long elapsedNanos = now - oldFrameTime;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
+                    fpsLabel.setText(String.format("FPS: %.1f", frameRate));
+                }
+
+                double deltaTime = (now - lastTime) / 1_000_000_000.0;
                 lastTime = now;
 
+                // Existing ball update and drawing logic
                 BallManager.updateBalls(deltaTime, CANVAS_WIDTH, CANVAS_HEIGHT);
                 GraphicsContext gc = gameCanvas.getGraphicsContext2D();
                 gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
                 BallManager.drawBalls(gc, gamePane);
-                draw(gameCanvas.getGraphicsContext2D());
             }
         };
         timer.start();
