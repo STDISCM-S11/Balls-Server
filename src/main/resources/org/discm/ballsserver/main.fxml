@@ -15,7 +15,7 @@
 <AnchorPane prefHeight="1920.0" prefWidth="1080.0" style="-fx-background-color: midnightblue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="gamePane" layoutX="6.0" layoutY="6.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: cornflowerblue;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TabPane prefHeight="350.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="380.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Form 0">
             <content>
@@ -65,7 +65,7 @@
                              </Label>
                              <TextField fx:id="velocityField" alignment="CENTER" />
                          </HBox>
-                        <Button fx:id="spawnButton" mnemonicParsing="false" text="Spawn ball" />
+                        <Button fx:id="spawnButton0" mnemonicParsing="false" text="Spawn ball" />
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                            <opaqueInsets>
                               <Insets />
@@ -93,6 +93,19 @@
                <content>
                   <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
                      <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="n">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField alignment="CENTER" fx:id="n1" />
+                           </children>
+                        </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <opaqueInsets>
                               <Insets />
@@ -103,7 +116,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="startX1" alignment="CENTER" fx:id="xField1" />
+                              <TextField id="startX1" fx:id="startX1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -116,7 +129,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="startY1" fx:id="yField1" alignment="CENTER" />
+                              <TextField id="startY1" fx:id="startY1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -129,7 +142,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="endX1" alignment="CENTER" fx:id="xField11" />
+                              <TextField id="endX1" fx:id="endX1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -142,7 +155,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="endY1" fx:id="yField11" alignment="CENTER" />
+                              <TextField id="endY1" fx:id="endY1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -155,7 +168,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="angle1" fx:id="angleField1" alignment="CENTER" />
+                              <TextField id="angle1" fx:id="angle1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -168,7 +181,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="velocity1" fx:id="velocityField1" alignment="CENTER" />
+                              <TextField id="velocity1" fx:id="velocity1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <Button fx:id="spawnButton1" mnemonicParsing="false" text="Spawn ball" />
@@ -200,6 +213,19 @@
                <content>
                   <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
                      <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="n">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField alignment="CENTER" fx:id="n2" />
+                           </children>
+                        </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <opaqueInsets>
                               <Insets />
@@ -210,7 +236,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="x2" alignment="CENTER" fx:id="xField2" />
+                              <TextField id="x2" alignment="CENTER" fx:id="x2" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -223,7 +249,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="y2" fx:id="yField2" alignment="CENTER" />
+                              <TextField id="y2" fx:id="y2" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -236,7 +262,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="startAngle2" alignment="CENTER" fx:id="xField21" />
+                              <TextField id="startAngle2" fx:id="startAngle2" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -249,7 +275,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="endAngle2" fx:id="yField21" alignment="CENTER" />
+                              <TextField id="endAngle2" fx:id="endAngle2" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -262,10 +288,10 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="velocity2" fx:id="velocityField11" alignment="CENTER" />
+                              <TextField id="velocity2" fx:id="velocity2" alignment="CENTER" />
                            </children>
                         </HBox>
-                        <Button fx:id="spawnButton11" mnemonicParsing="false" text="Spawn ball" />
+                        <Button fx:id="spawnButton2" mnemonicParsing="false" text="Spawn ball" />
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                            <opaqueInsets>
                               <Insets />
@@ -294,6 +320,19 @@
                <content>
                   <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
                      <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="n">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField alignment="CENTER" fx:id="n3" />
+                           </children>
+                        </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <opaqueInsets>
                               <Insets />
@@ -304,7 +343,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="x3" alignment="CENTER" fx:id="xField111" />
+                              <TextField id="x3" alignment="CENTER" fx:id="x3" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -317,7 +356,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="y3" fx:id="yField111" alignment="CENTER" />
+                              <TextField id="y3" fx:id="y3" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -330,7 +369,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="angle3" alignment="CENTER" fx:id="xField1111" />
+                              <TextField id="angle3" fx:id="angle3" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -343,7 +382,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="startVelocity3" fx:id="yField1111" alignment="CENTER" />
+                              <TextField id="startVelocity3" fx:id="startVelocity3" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -356,10 +395,10 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="endVelocity3" fx:id="velocityField111" alignment="CENTER" />
+                              <TextField id="endVelocity3" fx:id="endVelocity3" alignment="CENTER" />
                            </children>
                         </HBox>
-                        <Button fx:id="spawnButton111" mnemonicParsing="false" text="Spawn ball" />
+                        <Button fx:id="spawnButton3" mnemonicParsing="false" text="Spawn ball" />
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                            <opaqueInsets>
                               <Insets />
