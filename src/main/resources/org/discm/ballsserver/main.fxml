@@ -71,12 +71,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label id="fpsLabel" text="FPS:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label id="fpsText" text="&lt;60&gt;">
+                              <Label fx:id="fpsLabel" text="FPS:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -103,7 +98,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField alignment="CENTER" fx:id="n1" />
+                              <TextField fx:id="n1" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -190,12 +185,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label id="fpsLabel" text="FPS:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label id="fpsText" text="&lt;60&gt;">
+                              <Label fx:id="fpsLabel1" text="FPS:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -223,7 +213,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField alignment="CENTER" fx:id="n2" />
+                              <TextField fx:id="n2" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -297,12 +287,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label id="fpsLabel" text="FPS:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label id="fpsText" text="&lt;60&gt;">
+                              <Label fx:id="fpsLabel2" text="FPS:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -330,7 +315,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField alignment="CENTER" fx:id="n3" />
+                              <TextField fx:id="n3" alignment="CENTER" />
                            </children>
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -404,12 +389,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label id="fpsLabel" text="FPS:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label id="fpsText" text="&lt;60&gt;">
+                              <Label fx:id="fpsLabel3" text="FPS:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

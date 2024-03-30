@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -22,9 +23,6 @@ public class Main extends Application {
 
     @FXML
     private Pane gamePane;
-
-    @FXML
-    private Label fpsLabel;
 
     // Spawn Buttons for each form
     @FXML
@@ -37,6 +35,10 @@ public class Main extends Application {
 
     private Server server;
     private SpriteManager spriteManager;
+
+    private final long optimalTime = 1_000_000_000L / 60; // Class field for optimal time
+    private long lastTime = 0; // Class field for last time
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -72,14 +74,19 @@ public class Main extends Application {
         spawnButton3.setOnAction(event -> spawnBall3());
     }
 
-    private void setupAnimationTimer(Canvas gameCanvas) {
+    public void setupAnimationTimer(Canvas gameCanvas) {
         final long[] frameTimes = new long[100];
         final int[] frameTimeIndex = {0};
         final boolean[] arrayFilled = {false};
+        final long[] lastUpdateTime = {System.nanoTime()}; // Make this an array
+
+
+        Label fpsLabel = (Label) gamePane.getScene().lookup("#fpsLabel");
+        Label fpsLabel1 = (Label) gamePane.getScene().lookup("#fpsLabel1");
+        Label fpsLabel2 = (Label) gamePane.getScene().lookup("#fpsLabel2");
+        Label fpsLabel3 = (Label) gamePane.getScene().lookup("#fpsLabel3");
 
         AnimationTimer timer = new AnimationTimer() {
-            private long lastTime = 0;
-
             @Override
             public void handle(long now) {
                 long oldFrameTime = frameTimes[frameTimeIndex[0]];
@@ -88,11 +95,24 @@ public class Main extends Application {
                 if (frameTimeIndex[0] == 0) {
                     arrayFilled[0] = true;
                 }
-                if (arrayFilled[0]) {
-                    long elapsedNanos = now - oldFrameTime;
-                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
-                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
-                    fpsLabel.setText(String.format("FPS: %.1f", frameRate));
+                if ((now - lastUpdateTime[0]) >= optimalTime) {
+                    lastUpdateTime[0] = now;
+                    if (arrayFilled[0]) {
+                        long elapsedNanos = now - oldFrameTime;
+                        long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                        double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
+                        if(frameRate > 60.0) {
+                            frameRate = 60.0;
+                        }
+
+                        double finalFrameRate = frameRate; // Must be effectively final for use in lambda
+                        Platform.runLater(() -> {
+                            fpsLabel.setText(String.format("FPS: %.1f", finalFrameRate));
+                            fpsLabel1.setText(String.format("FPS: %.1f", finalFrameRate));
+                            fpsLabel2.setText(String.format("FPS: %.1f", finalFrameRate));
+                            fpsLabel3.setText(String.format("FPS: %.1f", finalFrameRate));
+                        });
+                    }
                 }
 
                 double deltaTime = (now - lastTime) / 1_000_000_000.0;
@@ -107,6 +127,7 @@ public class Main extends Application {
         };
         timer.start();
     }
+
 
     private void draw(GraphicsContext gc) {
         gc.save(); // Save the current state of the GraphicsContext
