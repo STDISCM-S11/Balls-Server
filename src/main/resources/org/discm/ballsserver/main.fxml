@@ -71,7 +71,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label fx:id="fpsLabel" text="FPS:">
+                              <Label fx:id="fpsLabel" text="FPS: 60.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -185,7 +185,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label fx:id="fpsLabel1" text="FPS:">
+                              <Label fx:id="fpsLabel1" text="FPS: 60.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -287,7 +287,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label fx:id="fpsLabel2" text="FPS:">
+                              <Label fx:id="fpsLabel2" text="FPS: 60.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -389,7 +389,7 @@
                               <Insets />
                            </opaqueInsets>
                            <children>
-                              <Label fx:id="fpsLabel3" text="FPS:">
+                              <Label fx:id="fpsLabel3" text="FPS: 60.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

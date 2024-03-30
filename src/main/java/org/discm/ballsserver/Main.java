@@ -123,6 +123,7 @@ public class Main extends Application {
                 GraphicsContext gc = gameCanvas.getGraphicsContext2D();
                 gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
                 BallManager.drawBalls(gc, gamePane);
+                draw(gameCanvas.getGraphicsContext2D());
             }
         };
         timer.start();
@@ -153,12 +154,14 @@ public class Main extends Application {
         TextField angleField = (TextField) gamePane.getScene().lookup("#angleField");
         TextField velocityField = (TextField) gamePane.getScene().lookup("#velocityField");
 
+        // Retrieve values from text fields
         double x = Double.parseDouble(xField.getText());
-        double y = Double.parseDouble(yField.getText());
+        // Subtract y from CANVAS_HEIGHT to flip the y-coordinate
+        double y = CANVAS_HEIGHT - Double.parseDouble(yField.getText());
         double angle = Double.parseDouble(angleField.getText());
         double velocity = Double.parseDouble(velocityField.getText());
 
-        // Example: Add a ball
+        // Adjusted y-coordinate for the bottom-left origin
         Ball ball = new Ball(x, y, velocity, angle);
         BallManager.addBall(ball);
     }
@@ -174,26 +177,27 @@ public class Main extends Application {
             TextField angle1 = (TextField) gamePane.getScene().lookup("#angle1");
             TextField velocity1 = (TextField) gamePane.getScene().lookup("#velocity1");
 
-            // Retrieve values from Form 1's text fields
             int numBalls = Integer.parseInt(n1.getText());
             double startX = Double.parseDouble(startX1.getText());
-            double startY = Double.parseDouble(startY1.getText());
+            double startY = CANVAS_HEIGHT - Double.parseDouble(startY1.getText());
             double endX = Double.parseDouble(endX1.getText());
-            double endY = Double.parseDouble(endY1.getText());
+            double endY = CANVAS_HEIGHT - Double.parseDouble(endY1.getText());
             double angle = Double.parseDouble(angle1.getText());
             double velocity = Double.parseDouble(velocity1.getText());
 
             // Calculate the number of balls to spawn based on distance between start and end points
             double distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
 
-            // Calculate the x and y increments per ball
-            double deltaX = (endX - startX) / numBalls;
-            double deltaY = (endY - startY) / numBalls;
+            double spacing = distance/(numBalls -1);
 
-            // Spawn balls
-            for (int i = 0; i <= numBalls; i++) {
-                double x = startX + (deltaX * i);
-                double y = startY + (deltaY * i);
+            // Calculate the x and y increments per ball
+            double deltaX = (endX - startX) / distance; // Use numBalls - 1 for spacing
+            double deltaY = (endY - startY) / distance; // Use numBalls - 1 for spacing
+
+            // Now spawning balls with adjusted y-coordinates
+            for (int i = 0; i < numBalls; i++) {
+                double x = startX + deltaX* spacing * i;
+                double y = startY + deltaY * spacing * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
             }
@@ -212,10 +216,10 @@ public class Main extends Application {
             TextField endAngle2 = (TextField) gamePane.getScene().lookup("#endAngle2");
             TextField velocity2 = (TextField) gamePane.getScene().lookup("#velocity2");
 
-            // Retrieve values from Form 2's text fields
             int numBalls = Integer.parseInt(n2.getText());
             double x = Double.parseDouble(x2.getText());
-            double y = Double.parseDouble(y2.getText());
+            // Adjust y from canvas height to flip y-coordinate
+            double y = CANVAS_HEIGHT - Double.parseDouble(y2.getText());
             double startAngle = Double.parseDouble(startAngle2.getText());
             double endAngle = Double.parseDouble(endAngle2.getText());
             double velocity = Double.parseDouble(velocity2.getText());
@@ -223,9 +227,9 @@ public class Main extends Application {
             // Calculate the angle increment per ball
             double deltaAngle = (endAngle - startAngle) / numBalls;
 
-            // Spawn balls
+            // Adjusting angle calculation for flipped y-coordinate as necessary
             for (int i = 0; i <= numBalls; i++) {
-                double angle = startAngle + (deltaAngle * i);
+                double angle = startAngle + deltaAngle * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
             }
@@ -244,10 +248,10 @@ public class Main extends Application {
             TextField startVelocity3 = (TextField) gamePane.getScene().lookup("#startVelocity3");
             TextField endVelocity3 = (TextField) gamePane.getScene().lookup("#endVelocity3");
 
-            // Retrieve values from Form 3's text fields
             int numBalls = Integer.parseInt(n3.getText());
             double x = Double.parseDouble(x3.getText());
-            double y = Double.parseDouble(y3.getText());
+            // Adjust y from canvas height to flip y-coordinate
+            double y = CANVAS_HEIGHT - Double.parseDouble(y3.getText());
             double angle = Double.parseDouble(angle3.getText());
             double startVelocity = Double.parseDouble(startVelocity3.getText());
             double endVelocity = Double.parseDouble(endVelocity3.getText());
@@ -256,8 +260,9 @@ public class Main extends Application {
             double deltaVelocity = (endVelocity - startVelocity) / numBalls;
 
             // Spawn balls
+            // Adjusting for the number of balls and velocity spread
             for (int i = 0; i <= numBalls; i++) {
-                double velocity = startVelocity + (deltaVelocity * i);
+                double velocity = startVelocity + deltaVelocity * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
             }
