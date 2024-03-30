@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1920.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="1920.0" prefWidth="1080.0" style="-fx-background-color: midnightblue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="gamePane" layoutX="6.0" layoutY="6.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: red;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TabPane prefHeight="250.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="gamePane" layoutX="6.0" layoutY="6.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: cornflowerblue;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TabPane prefHeight="350.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="0">
+          <Tab text="Form 0">
             <content>
-              <VBox minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: gray;">
+              <VBox minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: oldlace;">
                      <children>
                          <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <opaqueInsets>
@@ -34,7 +41,7 @@
                                      <Font size="18.0" />
                                  </font>
                              </Label>
-                             <TextField alignment="CENTER" fx:id="yField" />
+                             <TextField fx:id="yField" alignment="CENTER" />
                          </HBox>
                          <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <opaqueInsets>
@@ -45,7 +52,7 @@
                                      <Font size="18.0" />
                                  </font>
                              </Label>
-                             <TextField alignment="CENTER" fx:id="angleField" />
+                             <TextField fx:id="angleField" alignment="CENTER" />
                          </HBox>
                          <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <opaqueInsets>
@@ -56,15 +63,327 @@
                                      <Font size="18.0" />
                                  </font>
                              </Label>
-                             <TextField alignment="CENTER" fx:id="velocityField" />
+                             <TextField fx:id="velocityField" alignment="CENTER" />
                          </HBox>
-                        <Button mnemonicParsing="false" text="Spawn ball" fx:id="spawnButton" />
+                        <Button fx:id="spawnButton" mnemonicParsing="false" text="Spawn ball" />
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label id="fpsLabel" text="FPS:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="fpsText" text="&lt;60&gt;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets left="10.0" top="10.0" />
                      </padding></VBox>
             </content>
           </Tab>
+            <Tab text="Form 1">
+               <content>
+                  <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="start x">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="startX1" alignment="CENTER" fx:id="xField1" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="start y">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="startY1" fx:id="yField1" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="end x">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="endX1" alignment="CENTER" fx:id="xField11" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="end y">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="endY1" fx:id="yField11" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="angle">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="angle1" fx:id="angleField1" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="velocity">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="velocity1" fx:id="velocityField1" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="spawnButton1" mnemonicParsing="false" text="Spawn ball" />
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label id="fpsLabel" text="FPS:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="fpsText" text="&lt;60&gt;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Form 2">
+               <content>
+                  <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="x">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="x2" alignment="CENTER" fx:id="xField2" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="y">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="y2" fx:id="yField2" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="start angle">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="startAngle2" alignment="CENTER" fx:id="xField21" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="end angle">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="endAngle2" fx:id="yField21" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="velocity">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="velocity2" fx:id="velocityField11" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="spawnButton11" mnemonicParsing="false" text="Spawn ball" />
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label id="fpsLabel" text="FPS:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="fpsText" text="&lt;60&gt;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Form 3">
+               <content>
+                  <VBox minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: oldlace;">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="x">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="x3" alignment="CENTER" fx:id="xField111" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="y">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="y3" fx:id="yField111" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="angle">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="angle3" alignment="CENTER" fx:id="xField1111" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="start velocity">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="startVelocity3" fx:id="yField1111" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="290.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label text="end velocity">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="endVelocity3" fx:id="velocityField111" alignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="spawnButton111" mnemonicParsing="false" text="Spawn ball" />
+                        <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Label id="fpsLabel" text="FPS:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="fpsText" text="&lt;60&gt;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
         </tabs>
          <opaqueInsets>
             <Insets />
