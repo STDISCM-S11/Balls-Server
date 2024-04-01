@@ -58,7 +58,7 @@ public class Main extends Application {
 
         // Initialize sprite manager and create a sprite
         spriteManager = new SpriteManager();
-        spriteManager.addSprite(new Sprite(0, 0)); // Example position
+//        spriteManager.drawSprites(); // Example position
 
         server = new Server(4000);
         thread.execute(() -> server.runServer());
