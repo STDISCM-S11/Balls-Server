@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class SpriteManager {
-    private ArrayList<Sprite> sprites = new ArrayList<>();
+    public static ArrayList<Sprite> sprites = new ArrayList<>();
     private boolean explorerMode;
     private float pixelWidth = 50.0f, pixelHeight = 50.0f;
 

@@ -65,37 +65,42 @@ public class Server {
         @Override
         public void run() {
             try {
-//                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-//                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
                 while (true) {
-                    JSONArray jsonArray = new JSONArray();
+                    JSONObject jsonToSend = new JSONObject();
+                    JSONArray jsonBallsArray = new JSONArray();
                     ArrayList<Ball> balls = BallManager.balls;
-//                    if(balls.isEmpty()){
-//                        continue;
-//                    }
-
                     for (Ball ball : balls) {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("x", ball.getX());
                         jsonObject.put("y", ball.getY());
                         jsonObject.put("angle", ball.getAngle());
                         jsonObject.put("velocity", ball.getVelocity());
-                        jsonArray.put(jsonObject);
-//                        System.out.println(ball.getX());
-//                        System.out.println(ball.getY());
+                        jsonBallsArray.put(jsonObject);
+                    }
+                    jsonToSend.put("type", "ball");
+                    jsonToSend.put("data", jsonBallsArray);
+
+                    JSONArray jsonSpritesArray = new JSONArray();
+                    ArrayList<Sprite> sprites = SpriteManager.sprites;
+                    for (Sprite sprite : sprites) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("x", sprite.getX());
+                        jsonObject.put("y", sprite.getY());
+                        jsonSpritesArray.put(jsonObject);
                     }
 
-                    for(int i = 0; i < id; i++){
-                        // Send JSON string to client
-                        PrintWriter out = new PrintWriter(clientOutputStreams.get(i), true);
-                        out.println(jsonArray.toString());
+                    JSONObject spritesJson = new JSONObject();
+                    spritesJson.put("type", "sprite");
+                    spritesJson.put("data", jsonSpritesArray);
+
+                    for (int i = 0; i < id; i++) {
+                        PrintWriter outBalls = new PrintWriter(clientOutputStreams.get(i), true);
+                        PrintWriter outSprites = new PrintWriter(clientOutputStreams.get(i), true);
+                        outBalls.println(jsonToSend.toString());
+                        outSprites.println(spritesJson.toString());
                     }
 
-
-
-                    // Wait for some time before sending again
-                    Thread.sleep(10); // Adjust the delay according to your requirements
+                    Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
