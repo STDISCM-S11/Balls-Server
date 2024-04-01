@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -62,57 +63,73 @@ public class Server {
 
         }
 
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    JSONObject jsonToSend = new JSONObject();
-                    JSONArray jsonBallsArray = new JSONArray();
-                    ArrayList<Ball> balls = BallManager.balls;
-                    for (Ball ball : balls) {
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("x", ball.getX());
-                        jsonObject.put("y", ball.getY());
-                        jsonObject.put("angle", ball.getAngle());
-                        jsonObject.put("velocity", ball.getVelocity());
-                        jsonBallsArray.put(jsonObject);
-                    }
-                    jsonToSend.put("type", "ball");
-                    jsonToSend.put("data", jsonBallsArray);
-
-                    JSONArray jsonSpritesArray = new JSONArray();
-                    ArrayList<Sprite> sprites = SpriteManager.sprites;
-                    for (Sprite sprite : sprites) {
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("x", sprite.getX());
-                        jsonObject.put("y", sprite.getY());
-                        jsonSpritesArray.put(jsonObject);
-                    }
-
-                    JSONObject spritesJson = new JSONObject();
-                    spritesJson.put("type", "sprite");
-                    spritesJson.put("data", jsonSpritesArray);
-
-                    for (int i = 0; i < id; i++) {
-                        PrintWriter outBalls = new PrintWriter(clientOutputStreams.get(i), true);
-                        PrintWriter outSprites = new PrintWriter(clientOutputStreams.get(i), true);
-                        outBalls.println(jsonToSend.toString());
-                        outSprites.println(spritesJson.toString());
-                    }
-
-                    Thread.sleep(10);
+    @Override
+    public void run() {
+    try {
+        PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+        
+        while (true) {
+            // Ball Data Sending
+            ArrayList<Ball> balls = new ArrayList<>(BallManager.balls); // Assume BallManager.balls is thread-safe
+            final int batchSize = 10; // Or any other appropriate batch size
+            int totalBatches = (balls.size() + batchSize - 1) / batchSize;
+            
+            for (int batch = 0; batch < totalBatches; batch++) {
+                int start = batch * batchSize;
+                int end = Math.min(start + batchSize, balls.size());
+                
+                JSONObject jsonToSend = new JSONObject();
+                JSONArray jsonBallsArray = new JSONArray();
+                
+                for (int i = start; i < end; i++) {
+                    Ball ball = balls.get(i);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("x", ball.getX());
+                    jsonObject.put("y", ball.getY());
+                    jsonObject.put("angle", ball.getAngle());
+                    jsonObject.put("velocity", ball.getVelocity());
+                    jsonBallsArray.put(jsonObject);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                
+                jsonToSend.put("type", "ballBatch");
+                jsonToSend.put("batch", batch + 1);
+                jsonToSend.put("totalBatches", totalBatches);
+                jsonToSend.put("data", jsonBallsArray);
+                
+                out.println(jsonToSend.toString()); // Send the batch
             }
-//            try (DataInputStream in = new DataInputStream(new BufferedInputStream(client.getInputStream()))) {
-//                String line;
-//                while (!(line = in.readUTF()).equals("Over")) {
-////                    processRequest(line, new DataOutputStream(clientSocket.getOutputStream()));
-//                }
-//            } catch (IOException e) {
-//                System.err.println("ClientHandler exception: " + e.getMessage());
-//            }
+            
+            // Sprite Data Sending
+            JSONObject spritesJson = new JSONObject();
+            JSONArray jsonSpritesArray = new JSONArray();
+            ArrayList<Sprite> sprites = new ArrayList<>(SpriteManager.sprites); // Assume SpriteManager.sprites is thread-safe
+            for (Sprite sprite : sprites) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("x", sprite.getX());
+                jsonObject.put("y", sprite.getY());
+                jsonSpritesArray.put(jsonObject);
+            }
+            
+            spritesJson.put("type", "sprite");
+            spritesJson.put("data", jsonSpritesArray);
+            
+            out.println(spritesJson.toString()); // Send sprite data
+
+            Thread.sleep(10); // Control the update frequency
         }
+    } catch (IOException e) {
+        System.err.println("Server exception: " + e.getMessage());
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt(); // Restore interrupted status
+        System.err.println("Server thread interrupted: " + e.getMessage());
+    } finally {
+        try {
+            client.close(); // Ensure the client socket is properly closed when done
+        } catch (IOException e) {
+            System.err.println("Error closing client socket: " + e.getMessage());
+        }
+    }
+}
+
     }
 }
