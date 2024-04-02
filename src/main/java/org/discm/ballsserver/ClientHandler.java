@@ -61,7 +61,7 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
             }
             server.clientDisconnected(clientId);
-            System.out.println("disconnecting client");
+//            System.out.println("disconnecting client");
         }
     }
 

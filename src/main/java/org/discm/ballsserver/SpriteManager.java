@@ -61,7 +61,7 @@ public class SpriteManager {
 
                 // Finally, remove the sprite from the list
                 sprites.remove(spriteToRemove);
-                System.out.println("removing sprite");
+//                System.out.println("removing sprite");
             }
         });
     }
