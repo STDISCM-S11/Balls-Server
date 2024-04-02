@@ -1,5 +1,7 @@
 package org.discm.ballsserver;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class Server {
     private static final int PORT = 4000;
@@ -31,9 +34,20 @@ public class Server {
         }
     }
 
-    public void broadcastMessage(String senderId, String message) {
+    public void broadcastMessage(String senderId) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
         for (ClientHandler clientHandler : clientHandlers.values()) {
             if (!clientHandler.getClientId().equals(senderId)) { // Prevent echoing back to sender
+                Map<String, Object> messageData = new HashMap<String, Object>();
+                Object[] broadcastSprites = SpriteManager.sprites.stream()
+                        .filter(sprite -> sprite.getUUID().equals(senderId))
+                        .toArray();
+
+                messageData.put("type", "sprite");
+                messageData.put("data", broadcastSprites);
+
+                String message = mapper.writeValueAsString(messageData);
+
                 clientHandler.sendMessage(message);
             }
         }
