@@ -40,6 +40,14 @@ public class Main extends Application {
     private long lastTime = 0; // Class field for last time
     private static GraphicsContext graphicsContext; // Static field for the GraphicsContext
 
+    public static int getCanvasWidth() {
+        return CANVAS_WIDTH;
+    }
+
+    public static int getCanvasHeight() {
+        return CANVAS_HEIGHT;
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -144,7 +152,7 @@ public class Main extends Application {
 
         // Now (0,0) is at the bottom left, and you can draw using these coordinates
         BallManager.drawBalls(gc, gamePane);
-        spriteManager.drawSprites(gc); // Ensure sprite drawing logic accounts for the flipped y-axis
+        SpriteManager.drawSprites(gc); // Ensure sprite drawing logic accounts for the flipped y-axis
 
         gc.restore(); // Restore the original state of the GraphicsContext
     }

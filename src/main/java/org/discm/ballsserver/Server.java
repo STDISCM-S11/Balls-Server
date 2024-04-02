@@ -2,6 +2,7 @@ package org.discm.ballsserver;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,13 +19,11 @@ public class Server {
     public void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server started on port " + PORT);
-
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 String clientId = UUID.randomUUID().toString();
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clientId, this);
                 clientHandlers.put(clientId, clientHandler);
-
                 new Thread(clientHandler).start();
             }
         } catch (IOException e) {
@@ -50,10 +49,29 @@ public class Server {
 
     private void redrawGUI() {
         Platform.runLater(() -> {
-            // Assuming there's a method in your Main class or elsewhere to redraw or refresh the canvas
             GraphicsContext gc = Main.getGraphicsContext();
+            gc.clearRect(0, 0, Main.getCanvasWidth(), Main.getCanvasHeight());
             SpriteManager.drawSprites(gc);
         });
+    }
+
+    public synchronized void clientDisconnected(String clientId) {
+        // This method will handle everything related to a client disconnection.
+        SpriteManager.removeSprite(clientId); // Remove the sprite.
+        clientHandlers.remove(clientId); // Remove the client handler.
+
+        // Update the GUI to reflect the removal of the sprite.
+        redrawGUI();
+    }
+
+    public synchronized void removeClient(String clientId) {
+        clientHandlers.remove(clientId);
+        // Additional cleanup if necessary
+    }
+
+    public synchronized void removeSprite(String spriteId) {
+        SpriteManager.removeSprite(spriteId);
+        redrawGUI();
     }
 
 //    public static void main(String[] args) {
