@@ -11,10 +11,24 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List; // Make sure to import the List interface
 
 public class Server {
     private static final int PORT = 4000;
     private Map<String, ClientHandler> clientHandlers = Collections.synchronizedMap(new HashMap<>());
+    private ScheduledExecutorService broadcastExecutor = Executors.newScheduledThreadPool(1);
+
+    public Server() {
+        startServer();
+        schedulePeriodicBallUpdateBroadcast();
+    }
 
     public void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -29,6 +43,23 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void schedulePeriodicBallUpdateBroadcast() {
+        Runnable broadcastTask = () -> {
+            JSONArray jsonBalls = new JSONArray();
+            List<Ball> balls = BallManager.balls; // Make sure BallManager provides this method in a thread-safe manner
+            for (Ball ball : balls) {
+                JSONObject jsonBall = new JSONObject();
+                jsonBall.put("x", ball.getX());
+                jsonBall.put("y", ball.getY());
+                // Add other ball attributes as needed
+                jsonBalls.put(jsonBall);
+            }
+            broadcastMessage(null, jsonBalls.toString());
+        };
+
+        broadcastExecutor.scheduleAtFixedRate(broadcastTask, 0, 100, TimeUnit.MILLISECONDS);
     }
 
     public void broadcastMessage(String senderId, String message) {

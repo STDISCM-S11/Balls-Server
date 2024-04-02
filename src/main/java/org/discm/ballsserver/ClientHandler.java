@@ -50,6 +50,10 @@ public class ClientHandler implements Runnable {
 
                 // Update sprite position using the server method
                 server.updateSpritePosition(receivedClientId, x, y);
+
+                // Broadcast the updated position and client ID to other clients
+                String broadcastMessage = mapper.writeValueAsString(messageData);
+                server.broadcastMessage(clientId, broadcastMessage);
             }
         } catch (IOException e) {
             System.out.println("Client disconnected: " + clientId);
