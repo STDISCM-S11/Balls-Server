@@ -32,7 +32,7 @@ public class SpriteManager {
     
         if (spriteToUpdate == null) {
             // Create a new sprite with the given ID if it doesn't exist
-            spriteToUpdate = new Sprite(UUID.fromString(spriteId), x, y);
+            spriteToUpdate = new Sprite(spriteId, x, y);
             sprites.add(spriteToUpdate);
         } else {
             // Update existing sprite's position

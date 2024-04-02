@@ -2,13 +2,12 @@ package org.discm.ballsserver;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import java.util.UUID;
 
 public class Sprite {
     private float x, y, height = 10.0f; // Default height
-    UUID uuid;
+    String uuid;
 
-    public Sprite(UUID uuid, float startX, float startY) {
+    public Sprite(String uuid, float startX, float startY) {
         this.uuid = uuid;
         this.x = startX;
         this.y = startY;
@@ -62,5 +61,5 @@ public class Sprite {
         this.y = y;
     }
 
-    public UUID getUUID(){return uuid;}
+    public String getUUID(){return uuid;}
 }
