@@ -37,4 +37,8 @@ public class BallManager {
             gc.fillOval(adjustedX - Ball.getRadius(), adjustedY - Ball.getRadius(), diameter, diameter);
         }
     }
+
+    public static synchronized List<Ball> getBalls() {
+        return new ArrayList<>(balls);
+    }
 }
