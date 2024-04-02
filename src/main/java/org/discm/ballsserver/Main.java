@@ -38,6 +38,7 @@ public class Main extends Application {
 
     private final long optimalTime = 1_000_000_000L / 60; // Class field for optimal time
     private long lastTime = 0; // Class field for last time
+    private static GraphicsContext graphicsContext; // Static field for the GraphicsContext
 
 
     @Override
@@ -55,13 +56,14 @@ public class Main extends Application {
 
         Canvas gameCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         gamePane.getChildren().add(gameCanvas);
+        graphicsContext = gameCanvas.getGraphicsContext2D(); // Initialize the static field
 
         // Initialize sprite manager and create a sprite
         spriteManager = new SpriteManager();
 //        spriteManager.drawSprites(); // Example position
 
-        server = new Server(4000);
-        thread.execute(() -> server.runServer());
+        server = new Server();
+        thread.execute(() -> server.startServer());
 
         setupAnimationTimer(gameCanvas);
 
@@ -269,6 +271,10 @@ public class Main extends Application {
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid input in Form 3.");
         }
+    }
+
+    public static GraphicsContext getGraphicsContext() {
+        return graphicsContext;
     }
 
     public static void main(String[] args) {
