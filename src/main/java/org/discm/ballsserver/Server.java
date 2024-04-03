@@ -25,6 +25,7 @@ public class Server {
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clientId, this);
                 clientHandlers.put(clientId, clientHandler);
                 new Thread(clientHandler).start();
+                sendInitialBalls(clientHandler);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,6 +50,21 @@ public class Server {
         }
     }
 
+    public void sendInitialBalls(ClientHandler clientHandler){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> messageData = new HashMap<String, Object>();
+        String message;
+        messageData.put("ballData", BallManager.balls);
+        try {
+            message = mapper.writeValueAsString(messageData);
+            clientHandler.sendMessage(message + "\n");
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
     public void sendBalls(ArrayList<Ball> balls) {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> messageData = new HashMap<String, Object>();
