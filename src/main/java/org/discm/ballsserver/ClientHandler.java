@@ -1,11 +1,12 @@
 package org.discm.ballsserver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -13,7 +14,7 @@ public class ClientHandler implements Runnable {
     private Socket clientSocket;
     private String clientId;
     private Server server;
-    private PrintWriter out;
+    private BufferedOutputStream out;
 
     public ClientHandler(Socket socket, String clientId, Server server) {
         this.clientSocket = socket;
@@ -27,29 +28,25 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+        sendAndReceiveSprites();
+    }
+
+    private void sendAndReceiveSprites(){
         ObjectMapper mapper = new ObjectMapper(); // Jackson's JSON object mapper
 
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            out = new BufferedOutputStream(clientSocket.getOutputStream());
+
+            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
+
 
             // Send client ID back to the client
-            out.println(clientId);
+            printWriter.println(clientId);
 
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                // it gets the json from the client
-                // process each json (this is assuming na every value that it reads is the unique sprite?)
-                // { "x": float, "y": float }
-
-//                System.out.println("Received from client: " + inputLine); // Print the raw JSON message
-
-                // Parse the JSON message
                 Map<String, Object> messageData = mapper.readValue(inputLine, Map.class);
-
-
-
-                // Extract data from the JSON map
                 String receivedClientId = (String) messageData.get("clientId");
                 float x = ((Number) messageData.get("x")).floatValue();
                 float y = ((Number) messageData.get("y")).floatValue();
@@ -57,7 +54,6 @@ public class ClientHandler implements Runnable {
                 // Update sprite position using the server method
                 server.updateSpritePosition(receivedClientId, x, y);
                 String broadcastMessage = mapper.writeValueAsString(messageData);
-//                System.out.println(clientId + " " + broadcastMessage);
                 server.broadcastMessage(clientId);
             }
         } catch (IOException e) {
@@ -75,6 +71,14 @@ public class ClientHandler implements Runnable {
     }
 
     public void sendMessage(String message) {
-        out.println(message);
+        try{
+            byte[] jsonData = message.getBytes();
+            System.out.println(message);
+            out.write(jsonData);
+            out.flush();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 }

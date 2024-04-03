@@ -9,10 +9,7 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Server {
@@ -36,21 +33,36 @@ public class Server {
 
     public void broadcastMessage(String senderId) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        for (ClientHandler clientHandler : clientHandlers.values()) {
-            if (!clientHandler.getClientId().equals(senderId)) { // Prevent echoing back to sender
-                Map<String, Object> messageData = new HashMap<String, Object>();
-                Object[] broadcastSprites = SpriteManager.sprites.stream()
-                        .filter(sprite -> sprite.getUUID().equals(senderId))
-                        .toArray();
-
-                messageData.put("type", "sprite");
-                messageData.put("data", broadcastSprites);
-
-                String message = mapper.writeValueAsString(messageData);
-
-                clientHandler.sendMessage(message);
-            }
+        Map<String, Object> messageData = new HashMap<String, Object>();
+        String message;
+        if(clientHandlers.size() < 2){
+            return;
         }
+        for (ClientHandler clientHandler : clientHandlers.values()) {
+            Object[] broadcastSprites = SpriteManager.sprites.stream()
+                    .filter(sprite -> !sprite.getUUID().equals(clientHandler.getClientId()))
+                    .toArray();
+
+            messageData.put("spriteData", broadcastSprites);
+            message = mapper.writeValueAsString(messageData);
+            clientHandler.sendMessage(message + "\n");
+        }
+    }
+
+    public void sendBalls(ArrayList<Ball> balls) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> messageData = new HashMap<String, Object>();
+        String message;
+        messageData.put("ballData", balls);
+        try {
+            message = mapper.writeValueAsString(messageData);
+            for (ClientHandler clientHandler : clientHandlers.values()) {
+                clientHandler.sendMessage(message + "\n");
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void updateSpritePosition(String clientId, float x, float y) {
