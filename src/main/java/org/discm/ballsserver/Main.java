@@ -33,8 +33,8 @@ public class Main extends Application {
 
     private static final int CANVAS_WIDTH = 1280;
     private static final int CANVAS_HEIGHT = 720;
-    private static final int WINDOW_WIDTH = 1920;
-    private static final int WINDOW_HEIGHT = 1080;
+    private static final int WINDOW_WIDTH = 1600;
+    private static final int WINDOW_HEIGHT = 900;
 
     private Server server;
     private SpriteManager spriteManager;
