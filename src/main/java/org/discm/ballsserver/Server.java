@@ -116,6 +116,13 @@ public class Server {
         redrawGUI();
     }
 
+    private String constructSpritePositionMessage() {
+        StringBuilder message = new StringBuilder("UPDATE_SPRITE_POSITIONS|");
+        for (Sprite sprite : SpriteManager.getSprites()) {
+            message.append(sprite.getUUID()).append(",").append(sprite.getX()).append(",").append(sprite.getY()).append(";");
+        }
+        return message.toString();
+    }
 //    public static void main(String[] args) {
 //        new Server().startServer();
 //    }

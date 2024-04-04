@@ -44,6 +44,11 @@ public class SpriteManager {
         }
     }
 
+    public static List<Sprite> getSprites() {
+        return sprites;
+    }
+    
+
     public static synchronized void removeSprite(String spriteId) {
         Platform.runLater(() -> {
             // Find the sprite to remove by UUID
