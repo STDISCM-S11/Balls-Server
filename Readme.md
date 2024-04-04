@@ -24,7 +24,7 @@ or download as a ZIP file and extract it
 
 ## Step 2: Open the Project
 
-**Using Visual Studio Code
+Using Visual Studio Code
 
 Go to File > Open Folder and select the cloned directory.
 
