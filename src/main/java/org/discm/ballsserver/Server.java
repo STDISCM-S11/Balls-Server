@@ -4,13 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Server {
     private static final int PORT = 4000;
@@ -108,7 +106,6 @@ public class Server {
 
     public synchronized void removeClient(String clientId) {
         clientHandlers.remove(clientId);
-        // Additional cleanup if necessary
     }
 
     public synchronized void removeSprite(String spriteId) {
@@ -116,7 +113,4 @@ public class Server {
         redrawGUI();
     }
 
-//    public static void main(String[] args) {
-//        new Server().startServer();
-//    }
 }

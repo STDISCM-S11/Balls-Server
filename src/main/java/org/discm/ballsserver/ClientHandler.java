@@ -37,9 +37,7 @@ public class ClientHandler implements Runnable {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new BufferedOutputStream(clientSocket.getOutputStream());
-
             PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-
 
             // Send client ID back to the client
             printWriter.println(clientId);
@@ -50,6 +48,7 @@ public class ClientHandler implements Runnable {
                 String receivedClientId = (String) messageData.get("clientId");
                 float x = ((Number) messageData.get("x")).floatValue();
                 float y = ((Number) messageData.get("y")).floatValue();
+
 
                 // Update sprite position using the server method
                 server.updateSpritePosition(receivedClientId, x, y);
@@ -66,7 +65,6 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
             }
             server.clientDisconnected(clientId);
-//            System.out.println("disconnecting client");
         }
     }
 

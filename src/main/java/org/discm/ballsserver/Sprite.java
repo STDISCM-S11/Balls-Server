@@ -16,9 +16,21 @@ public class Sprite {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(color); // Example color, adjust as needed
-        // Drawing a square for simplicity, adjust as needed for your sprite
-        gc.fillRect(x - height / 2, y - height / 2, height, height);
+        // Save the current state of the GraphicsContext
+        gc.save();
+
+        // Translate to the center of the sprite to rotate around its center
+        gc.translate(x, y);
+
+        // Rotate 45 degrees (to make the square look like a diamond)
+        gc.rotate(45);
+
+        // Need to offset the square back to its intended position after rotation
+        gc.setFill(color); // Set the fill color for the sprite
+        gc.fillRect(-height / 2, -height / 2, height, height);
+
+        // Restore the original state of the GraphicsContext
+        gc.restore();
     }
 
     // Movement methods
