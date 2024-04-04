@@ -35,7 +35,7 @@ Go to File > Open Folder and select the cloned directory (stdiscm-balls-project)
 
 ## Step 4: Build and Run
 
-1. Navigate to the src folder in the Explorer pane of VS Code. Right-click on the main Java file (e.g., App.java) and select "Run Java".
+1. Navigate to the src folder in the Explorer pane of VS Code. Right-click on the main.java Java file and select "Run Java".
 2. Alternatively, you can use the terminal within VS Code to compile and run your Java application using the javac and java commands, respectively. Ensure your terminal's current directory is the project root.
 
 ## How to Use the program
