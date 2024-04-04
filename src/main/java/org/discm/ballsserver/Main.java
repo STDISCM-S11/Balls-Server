@@ -16,6 +16,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,6 +41,18 @@ public class Main extends Application {
 
     private final long optimalTime = 1_000_000_000L / 60; // Class field for optimal time
     private long lastTime = 0; // Class field for last time
+    private static GraphicsContext graphicsContext; // Static field for the GraphicsContext
+
+    private final ArrayList<Ball> newBalls = new ArrayList<Ball>();
+
+
+    public static int getCanvasWidth() {
+        return CANVAS_WIDTH;
+    }
+
+    public static int getCanvasHeight() {
+        return CANVAS_HEIGHT;
+    }
 
 
     @Override
@@ -55,13 +70,14 @@ public class Main extends Application {
 
         Canvas gameCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         gamePane.getChildren().add(gameCanvas);
+        graphicsContext = gameCanvas.getGraphicsContext2D(); // Initialize the static field
 
         // Initialize sprite manager and create a sprite
         spriteManager = new SpriteManager();
 //        spriteManager.drawSprites(); // Example position
 
-        server = new Server(4000);
-        thread.execute(() -> server.runServer());
+        server = new Server();
+        thread.execute(() -> server.startServer());
 
         setupAnimationTimer(gameCanvas);
 
@@ -142,7 +158,7 @@ public class Main extends Application {
 
         // Now (0,0) is at the bottom left, and you can draw using these coordinates
         BallManager.drawBalls(gc, gamePane);
-        spriteManager.drawSprites(gc); // Ensure sprite drawing logic accounts for the flipped y-axis
+        SpriteManager.drawSprites(gc); // Ensure sprite drawing logic accounts for the flipped y-axis
 
         gc.restore(); // Restore the original state of the GraphicsContext
     }
@@ -164,6 +180,9 @@ public class Main extends Application {
         // Adjusted y-coordinate for the bottom-left origin
         Ball ball = new Ball(x, y, velocity, angle);
         BallManager.addBall(ball);
+        newBalls.clear();
+        newBalls.add(ball);
+        server.sendBalls(newBalls);
     }
 
     private void spawnBall1() {
@@ -194,13 +213,17 @@ public class Main extends Application {
             double deltaX = (endX - startX) / distance; // Use numBalls - 1 for spacing
             double deltaY = (endY - startY) / distance; // Use numBalls - 1 for spacing
 
+            newBalls.clear();
             // Now spawning balls with adjusted y-coordinates
             for (int i = 0; i < numBalls; i++) {
                 double x = startX + deltaX* spacing * i;
                 double y = startY + deltaY * spacing * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
+                newBalls.add(ball);
             }
+            server.sendBalls(newBalls);
+
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid input in Form 1.");
         }
@@ -227,12 +250,16 @@ public class Main extends Application {
             // Calculate the angle increment per ball
             double deltaAngle = (endAngle - startAngle) / numBalls;
 
+            newBalls.clear();
             // Adjusting angle calculation for flipped y-coordinate as necessary
             for (int i = 0; i <= numBalls; i++) {
                 double angle = startAngle + deltaAngle * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
+                newBalls.add(ball);
             }
+            server.sendBalls(newBalls);
+
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid input in Form 2.");
         }
@@ -259,16 +286,24 @@ public class Main extends Application {
             // Calculate the velocity increment per ball
             double deltaVelocity = (endVelocity - startVelocity) / numBalls;
 
+            newBalls.clear();
             // Spawn balls
             // Adjusting for the number of balls and velocity spread
             for (int i = 0; i <= numBalls; i++) {
                 double velocity = startVelocity + deltaVelocity * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
+                newBalls.add(ball);
             }
+            server.sendBalls(newBalls);
+
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid input in Form 3.");
         }
+    }
+
+    public static GraphicsContext getGraphicsContext() {
+        return graphicsContext;
     }
 
     public static void main(String[] args) {

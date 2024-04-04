@@ -1,6 +1,7 @@
 module org.discm.ballsserver {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.fasterxml.jackson.databind;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;

@@ -2,20 +2,21 @@ package org.discm.ballsserver;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import java.util.UUID;
 
 public class Sprite {
     private float x, y, height = 10.0f; // Default height
-    UUID uuid;
+    private Color color; // Color property for the sprite
+    String uuid;
 
-    public Sprite(UUID uuid, float startX, float startY) {
+    public Sprite(String uuid, float startX, float startY) {
         this.uuid = uuid;
         this.x = startX;
         this.y = startY;
+        this.color = Color.GREEN; // Default sprite color, can be changed
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(Color.GREEN); // Example color, adjust as needed
+        gc.setFill(color); // Example color, adjust as needed
         // Drawing a square for simplicity, adjust as needed for your sprite
         gc.fillRect(x - height / 2, y - height / 2, height, height);
     }
@@ -62,5 +63,13 @@ public class Sprite {
         this.y = y;
     }
 
-    public UUID getUUID(){return uuid;}
+    public String getUUID(){return uuid;}
+
+    public void setColor(Color newColor) {
+        this.color = newColor;
+    }
+
+    public float getHeight() {
+        return height;
+    }
 }
