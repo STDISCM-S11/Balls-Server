@@ -34,9 +34,6 @@ public class Server {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> messageData = new HashMap<String, Object>();
         String message;
-        if(clientHandlers.size() < 2){
-            return;
-        }
         for (ClientHandler clientHandler : clientHandlers.values()) {
             Object[] broadcastSprites = SpriteManager.sprites.stream()
                     .filter(sprite -> !sprite.getUUID().equals(clientHandler.getClientId()))

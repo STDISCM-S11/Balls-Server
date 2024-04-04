@@ -16,7 +16,6 @@ public class Sprite {
     }
 
     public void draw(GraphicsContext gc) {
-        // Save the current state of the GraphicsContext
         gc.save();
 
         // Translate to the center of the sprite to rotate around its center
