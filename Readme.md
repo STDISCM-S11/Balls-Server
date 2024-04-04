@@ -18,7 +18,7 @@ Before you begin, ensure you have the following installed on your system:
 
 Open a terminal in VS Code (you can do this by going to Terminal > New Terminal from the menu, or using the shortcut Ctrl+).
 ```
-git clone https://github.com/TyroneStaMaria/stdiscm-balls-project.git
+git clone https://github.com/STDISCM-S11/Balls-Server/tree/main
 ```
 or download as a ZIP file and extract it
 
@@ -26,7 +26,7 @@ or download as a ZIP file and extract it
 
 **Using Visual Studio Code
 
-Go to File > Open Folder and select the cloned directory (stdiscm-balls-project).
+Go to File > Open Folder and select the cloned directory.
 
 ## Step 3: Configure Java Environment
 
