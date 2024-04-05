@@ -12,7 +12,7 @@ public class Sprite {
         this.uuid = uuid;
         this.x = startX;
         this.y = startY;
-        this.color = Color.GREEN; // Default sprite color, can be changed
+        this.color = Color.LIGHTGREEN; // Default sprite color, can be changed
     }
 
     public void draw(GraphicsContext gc) {

@@ -26,7 +26,7 @@ public class Ball {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(Color.BLUE);
+        gc.setFill(Color.ORANGE);
         gc.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
     }
 

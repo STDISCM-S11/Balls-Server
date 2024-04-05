@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
@@ -17,6 +19,7 @@ public class Server {
     private boolean sendBalls = true;
     private ArrayList<Ball> ballsToSend = new ArrayList<Ball>();
     ReentrantLock lock = new ReentrantLock();
+    private ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     public void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -27,7 +30,8 @@ public class Server {
                 String clientId = UUID.randomUUID().toString();
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clientId, this);
                 clientHandlers.put(clientId, clientHandler);
-                new Thread(clientHandler).start();
+                executorService.execute(clientHandler);
+//                new Thread(clientHandler).start();
                 sendInitialBalls(clientHandler);
 //                lock.unlock();
             }

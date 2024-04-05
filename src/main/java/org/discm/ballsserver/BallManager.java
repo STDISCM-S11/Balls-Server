@@ -33,7 +33,7 @@ public class BallManager {
             double adjustedX = ball.getX() - gamePaneX;
             double adjustedY = gamePaneY - ball.getY(); // Subtract from maxY to convert to bottom-up coordinate system
             double diameter = Ball.getRadius() * 2;
-            gc.setFill(Color.BLUE);
+            gc.setFill(Color.ORANGE);
             gc.fillOval(adjustedX - Ball.getRadius(), adjustedY - Ball.getRadius(), diameter, diameter);
         }
     }

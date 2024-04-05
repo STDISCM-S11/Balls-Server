@@ -7,9 +7,10 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SpriteManager {
-    public static List<Sprite> sprites = new ArrayList<>(); // Use ArrayList for storing sprites
+    public static List<Sprite> sprites = new CopyOnWriteArrayList<>(); // Use ArrayList for storing sprites
     private boolean explorerMode;
     private float pixelWidth = 50.0f, pixelHeight = 50.0f;
 
