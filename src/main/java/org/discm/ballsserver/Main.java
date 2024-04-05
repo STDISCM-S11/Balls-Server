@@ -252,12 +252,13 @@ public class Main extends Application {
 
             newBalls.clear();
             // Adjusting angle calculation for flipped y-coordinate as necessary
-            for (int i = 0; i <= numBalls; i++) {
+            for (int i = 0; i < numBalls; i++) {
                 double angle = startAngle + deltaAngle * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);
                 newBalls.add(ball);
             }
+//            System.out.println(newBalls.toArray().length);
             server.sendBalls(newBalls);
 
         } catch (NumberFormatException e) {
@@ -289,7 +290,7 @@ public class Main extends Application {
             newBalls.clear();
             // Spawn balls
             // Adjusting for the number of balls and velocity spread
-            for (int i = 0; i <= numBalls; i++) {
+            for (int i = 0; i < numBalls; i++) {
                 double velocity = startVelocity + deltaVelocity * i;
                 Ball ball = new Ball(x, y, velocity, angle);
                 BallManager.addBall(ball);

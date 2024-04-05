@@ -48,10 +48,9 @@ public class SpriteManager {
         Platform.runLater(() -> {
             // Find the sprite to remove by UUID
             Sprite spriteToRemove = sprites.stream()
-                    .filter(sprite -> sprite.getUUID().equals(spriteId))
+                    .filter(sprite -> sprite.getUUID().equals(spriteId.substring(0, spriteId.length() - 1)))
                     .findFirst()
                     .orElse(null);
-
             if (spriteToRemove != null) {
                 // Change the sprite color to match the background
                 spriteToRemove.setColor(Color.CORNFLOWERBLUE); // or your background color
@@ -60,7 +59,10 @@ public class SpriteManager {
                 Main.getGraphicsContext().fillRect(spriteToRemove.getX(), spriteToRemove.getY(), spriteToRemove.getHeight(), spriteToRemove.getHeight());
 
                 // Finally, remove the sprite from the list
+//                System.out.println("Remove sprite" + sprites.toArray().length);
+
                 sprites.remove(spriteToRemove);
+//                System.out.println("Removed already " + sprites.toArray().length);
 //                System.out.println("removing sprite");
             }
         });

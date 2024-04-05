@@ -2,6 +2,7 @@ package org.discm.ballsserver;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,10 +60,14 @@ public class ClientHandler implements Runnable {
             System.out.println("Client disconnected: " + clientId);
         } finally {
             try {
-                clientSocket.close();
-            } catch (IOException e) {
+                if(!clientSocket.isClosed()){
+                    clientSocket.close();
+                }
+            } catch (SocketException e) {
                 System.err.println("Error closing socket for client: " + clientId);
                 e.printStackTrace();
+            } catch (IOException e){
+
             }
             server.clientDisconnected(clientId);
         }
@@ -71,10 +76,10 @@ public class ClientHandler implements Runnable {
     public void sendMessage(String message) {
         try{
             byte[] jsonData = message.getBytes();
-            System.out.println(message);
+//            System.out.println("len: "+ jsonData.length + " message: " + message);
             out.write(jsonData);
             out.flush();
-        }catch(IOException e){
+        } catch(IOException e){
             e.printStackTrace();
         }
 
