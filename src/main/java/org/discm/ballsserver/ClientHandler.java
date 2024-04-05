@@ -58,15 +58,33 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             System.out.println("Client disconnected: " + clientId);
         } finally {
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                System.err.println("Error closing socket for client: " + clientId);
-                e.printStackTrace();
-            }
-            server.clientDisconnected(clientId);
+            cleanup();
         }
     }
+
+    private void cleanup() {
+        try {
+            if (out != null) {
+                out.close();
+            }
+        } catch (IOException e) {
+            System.err.println("Error closing output stream for client: " + clientId);
+            e.printStackTrace();
+        }
+
+        try {
+            if (clientSocket != null && !clientSocket.isClosed()) {
+                clientSocket.close();
+            }
+        } catch (IOException e) {
+            System.err.println("Error closing socket for client: " + clientId);
+            e.printStackTrace();
+        }
+
+        // Inform the server that this client has disconnected
+        server.clientDisconnected(clientId);
+    }
+
 
     public void sendMessage(String message) {
         try{

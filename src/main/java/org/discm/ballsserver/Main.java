@@ -222,6 +222,7 @@ public class Main extends Application {
                 BallManager.addBall(ball);
                 newBalls.add(ball);
             }
+            System.out.println(newBalls);
             server.sendBalls(newBalls);
 
         } catch (NumberFormatException e) {
