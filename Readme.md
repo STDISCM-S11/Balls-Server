@@ -42,4 +42,4 @@ Go to File > Open Folder and select the cloned directory.
 
 Here is a demonstration of how to use the particle simulator.
 
-[[https://drive.google.com/file/d/16FjNWlM0IkYmioYtVePzI-pZ3ia-SSsB/view?usp=sharing](https://drive.google.com/file/d/16FjNWlM0IkYmioYtVePzI-pZ3ia-SSsB/view?usp=sharing)https://drive.google.com/file/d/16FjNWlM0IkYmioYtVePzI-pZ3ia-SSsB/view?usp=sharing](https://drive.google.com/file/d/1EZtuuzM97jIUoiIIQ9TbRk_aClmHY9ya/view?usp=sharing)
+[https://drive.google.com/file/d/1EZtuuzM97jIUoiIIQ9TbRk_aClmHY9ya/view?usp=sharing](https://drive.google.com/file/d/1EZtuuzM97jIUoiIIQ9TbRk_aClmHY9ya/view?usp=sharing)
